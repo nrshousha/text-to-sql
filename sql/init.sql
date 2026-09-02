@@ -28,8 +28,6 @@ CREATE TABLE shipments (
 );
 
 
-- sql/init.sql
-
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
