@@ -27,36 +27,6 @@ CREATE TABLE shipments (
     shipped_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-
-CREATE TABLE products (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    sku TEXT UNIQUE NOT NULL,
-    quantity_on_hand INTEGER NOT NULL DEFAULT 0,
-    reorder_threshold INTEGER NOT NULL DEFAULT 10
-);
-
-CREATE TABLE suppliers (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    contact_email TEXT
-);
-
-CREATE TABLE product_suppliers (
-    product_id INTEGER NOT NULL REFERENCES products(id),
-    supplier_id INTEGER NOT NULL REFERENCES suppliers(id),
-    unit_cost NUMERIC(10, 2) NOT NULL,
-    PRIMARY KEY (product_id, supplier_id)
-);
-
-CREATE TABLE shipments (
-    id SERIAL PRIMARY KEY,
-    product_id INTEGER NOT NULL REFERENCES products(id),
-    quantity INTEGER NOT NULL,
-    direction TEXT NOT NULL CHECK (direction IN ('in', 'out')),
-    shipped_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
 -- Seed data
 INSERT INTO products (name, sku, quantity_on_hand, reorder_threshold) VALUES
     ('Steel Bolt M6', 'BLT-M6-001', 500, 100),
